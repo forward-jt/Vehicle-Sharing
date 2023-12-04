@@ -2,40 +2,6 @@ import pandas as pd
 import numpy as np
 import math
 
-# 讀取 CSV 檔案
-trip_data = pd.read_csv('yellow_tripdata_2023-01-11-09.csv'.)
-# 删除 PULocationID 與 DOLocationID 相同，或包含264或265的資料
-trip_data = trip_data[~((trip_data['PULocationID'] == trip_data['DOLocationID']) |
-                        (trip_data['PULocationID'].isin([264, 265])) |
-                        (trip_data['DOLocationID'].isin([264, 265])))]
-
-#轉換日期格式
-trip_data['tpep_pickup_datetime'] = pd.to_datetime(trip_data['tpep_pickup_datetime'])
-trip_data['tpep_dropoff_datetime'] = pd.to_datetime(trip_data['tpep_dropoff_datetime'])
-
-# 選擇 PULocationID 和 DOLocationID 欄位
-Pickup_data = trip_data['PULocationID'].to_numpy()
-Dropoff_data = trip_data['DOLocationID'].to_numpy()
-
-#產生nodes
-nodes = []
-for i in range(len(Pickup_data)):
-    nodes.append({'type': 'PICKUP', 'Location':Pickup_data[i]})
-for i in range(len(Dropoff_data)):
-    nodes.append({'type': 'DROPOFF', 'Location':Dropoff_data[i]})
-nodes.append({'type': 'SOURCE', 'Location':0})
-nodes.append({'type': 'SINK', 'Location':1000})
-print(len(nodes))
-
-trip_data = trip_data[['PULocationID','DOLocationID','tpep_pickup_datetime', 'tpep_dropoff_datetime']]
-location_data = pd.read_csv('IDLocation.csv')
-
-trip_data = trip_data.merge(location_data, left_on='PULocationID', right_on='LocationID', suffixes=('_start', '_end'))
-trip_data = trip_data.merge(location_data, left_on='DOLocationID', right_on='LocationID', suffixes=('_start', '_end'))
-trip_data = trip_data[['tpep_pickup_datetime', 'tpep_dropoff_datetime','PULocationID','DOLocationID','Latitude_start', 'Longitude_start', 'Latitude_end', 'Longitude_end']]
-print(trip_data)
-
-
 # 計算距離(歐式距離)
 def calculate_distance(lat1, lon1, lat2, lon2):
     lat1 = math.radians(lat1)
@@ -52,56 +18,104 @@ def calculate_distance(lat1, lon1, lat2, lon2):
 
     return distance
 
+class DataReader:
+	def __init__(self, data_path, loc_id_path):
+# 讀取 CSV 檔案
+		trip_data = pd.read_csv(data_path)
 
-# trip_data['Distance'] = trip_data.apply(lambda row: calculate_distance(row['Latitude_start'], row['Longitude_start'],
-#                                                                       row['Latitude_end'], row['Longitude_end']), axis=1)
+# 删除 PULocationID 與 DOLocationID 相同，或包含264或265的資料
+		trip_data = trip_data[~((trip_data['PULocationID']  ==  trip_data['DOLocationID']) |
+								(trip_data['PULocationID'].isin([264, 265])) |
+								(trip_data['DOLocationID'].isin([264, 265])))]
 
-#每小時行駛速度(公里)
-DrivingSpeed=20
+#轉換日期格式
+		trip_data['tpep_pickup_datetime'] = pd.to_datetime(trip_data['tpep_pickup_datetime'])
+		trip_data['tpep_dropoff_datetime'] = pd.to_datetime(trip_data['tpep_dropoff_datetime'])
 
-print(trip_data)
+		self.trip_data = trip_data
 
+		location_data = pd.read_csv(loc_id_path)
+		self.dist_table = [None]
+		for r in location_data.iterrows():
+			lat1 = r[1]['Latitude']
+			lon1 = r[1]['Longitude']
 
-links=[]
-for i in range(len(nodes)):    
-    link=[]
-    for j in range(len(nodes)):
-        if(nodes[i]['type']=='SOURCE'):
-            if(nodes[j]['type']=='SINK'):
-                link.append({'cap': 0 , 'cost': 0 })
-            elif(nodes[j]['type']=='PICKUP'):
-                link.append({'cap': 1 , 'cost': 30+30 })
-            else:
-                link.append(None)
-            
-        elif(nodes[i]['type']=='PICKUP'):
-            if(nodes[j]['type']=='DROPOFF')&(i+(len(nodes)-2)/2==j):
-                link.append({'cap': 1 , 'cost': -100*calculate_distance(location_data.at[nodes[i]['Location']-1, 'Latitude'],
-                                                                            location_data.at[nodes[i]['Location']-1, 'Longitude'],
-                                                                            location_data.at[nodes[j]['Location']-1, 'Latitude'],
-                                                                            location_data.at[nodes[j]['Location']-1, 'Longitude']) })
-            else:
-                link.append(None)
-                
-        elif(nodes[i]['type']=='DROPOFF'):
-            if(nodes[j]['type']=='SINK'):
-                link.append({'cap': 1 , 'cost': 30 })
-            if(nodes[j]['type']=='PICKUP')&(j!=i-(len(nodes)-2)/2):
-                
-                distance=calculate_distance(location_data.at[nodes[i]['Location']-1, 'Latitude'],
-                                                                          location_data.at[nodes[i]['Location']-1, 'Longitude'],
-                                                                          location_data.at[nodes[j]['Location']-1, 'Latitude'],
-                                                                          location_data.at[nodes[j]['Location']-1, 'Longitude'])
-                
-                trip_time=(trip_data.at[j,'tpep_pickup_datetime']-trip_data.at[int(i-(len(nodes)-2)/2),'tpep_dropoff_datetime'])
-                trip_time=trip_time.seconds/3600
-                if(distance/DrivingSpeed<trip_time):                
-                    link.append({'cap': 1 , 'cost': 30*distance/DrivingSpeed })
-                else:
-                    link.append(None)
-            else:
-                link.append(None)
+			if np.isnan(lat1) or np.isnan(lon1):
+				self.dist_table.append([None] * 256)
+				continue
 
-    links.append(link)
-    
-    
+			dist = [None]
+			for _r in location_data.iterrows():
+				lat2 = _r[1]['Latitude']
+				lon2 = _r[1]['Longitude']
+
+				if np.isnan(lat2) or np.isnan(lon2):
+					dist.append(None)
+				else:
+					dist.append(calculate_distance(lat1, lon1, lat2, lon2))
+
+			self.dist_table.append(dist)
+
+	def get_data(self, serv_cnt, speed):
+		nodes = self.gen_nodes(serv_cnt)
+		links = self.gen_links(nodes, speed)
+
+		return (nodes, links)
+
+	def gen_nodes(self, serv_cnt):
+# 選擇 PULocationID 和 DOLocationID 欄位
+		Pickup_data = self.trip_data['PULocationID'].to_numpy()
+		Dropoff_data = self.trip_data['DOLocationID'].to_numpy()
+
+		nodes = []
+		nodes.append({'type': 'SOURCE', 'Location':0, 'id': -1})
+		for i in range(serv_cnt):
+			nodes.append({'type': 'PICKUP', 'Location':Pickup_data[i], 'id': i})
+			nodes.append({'type': 'DROPOFF', 'Location':Dropoff_data[i], 'id': i})
+		nodes.append({'type': 'SINK', 'Location':1000, 'id': -1})
+
+		return nodes
+
+	def gen_links(self, nodes, speed):
+		dist_table = self.dist_table
+		trip_data = self.trip_data
+
+		links=[]
+		for n1 in nodes:
+			link=[]
+			for n2 in nodes:
+				if n1['type'] == 'SOURCE':
+					if n2['type'] == 'SINK':
+						link.append({'cap': 0, 'cost': 0})
+					elif n2['type'] == 'PICKUP':
+						link.append({'cap': 1, 'cost': 60})
+					else:
+						link.append(None)
+				elif n1['type'] == 'PICKUP':
+					if n2['type'] == 'DROPOFF' and n1['id'] == n2['id']:
+						link.append({'cap': 1, 'cost': -100 * dist_table[n1['Location']][n2['Location']]})
+					else:
+						link.append(None)
+				elif n1['type'] == 'DROPOFF':
+					if n2['type'] == 'SINK':
+						link.append({'cap': 1, 'cost': 30})
+					elif n2['type'] == 'PICKUP' and n1['id'] != n2['id']:
+						dist = dist_table[n1['Location']][n2['Location']]
+						trip_time = trip_data.at[n2['id'], 'tpep_pickup_datetime'] - trip_data.at[n1['id'], 'tpep_dropoff_datetime']
+						trip_time = trip_time.seconds / 3600
+						if dist / speed < trip_time:
+							link.append({'cap': 1, 'cost': 30 * dist / speed})
+						else:
+							link.append(None)
+					else:
+						link.append(None)
+				else:
+					link = [None] * len(nodes)
+
+			links.append(link)
+
+		return links
+
+# Usage:
+#	reader = DataReader('yellow_tripdata_2023-01-11.csv', 'IDLocation.csv')
+#	print(reader.get_data(3, 20))
