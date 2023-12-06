@@ -56,9 +56,9 @@ class DataReader:
 
 			self.dist_table.append(dist)
 
-	def get_data(self, serv_cnt, speed):
+	def get_data(self, veh_cnt, serv_cnt, speed):
 		nodes = self.gen_nodes(serv_cnt)
-		links = self.gen_links(nodes, speed)
+		links = self.gen_links(veh_cnt, nodes, speed)
 
 		return (nodes, links)
 
@@ -67,16 +67,20 @@ class DataReader:
 		Pickup_data = self.trip_data['PULocationID'].to_numpy()
 		Dropoff_data = self.trip_data['DOLocationID'].to_numpy()
 
+		i = 0
 		nodes = []
 		nodes.append({'type': 'SOURCE', 'Location':0, 'id': -1})
-		for i in range(serv_cnt):
-			nodes.append({'type': 'PICKUP', 'Location':Pickup_data[i], 'id': i})
-			nodes.append({'type': 'DROPOFF', 'Location':Dropoff_data[i], 'id': i})
+		for r in self.trip_data.iterrows():
+			nodes.append({'type': 'PICKUP', 'Location':Pickup_data[i], 'id': r[0]})
+			nodes.append({'type': 'DROPOFF', 'Location':Dropoff_data[i], 'id': r[0]})
+			i += 1
+			if i >= serv_cnt:
+				break
 		nodes.append({'type': 'SINK', 'Location':1000, 'id': -1})
 
 		return nodes
 
-	def gen_links(self, nodes, speed):
+	def gen_links(self, veh_cnt, nodes, speed):
 		dist_table = self.dist_table
 		trip_data = self.trip_data
 
@@ -86,7 +90,7 @@ class DataReader:
 			for n2 in nodes:
 				if n1['type'] == 'SOURCE':
 					if n2['type'] == 'SINK':
-						link.append({'cap': 0, 'cost': 0})
+						link.append({'cap': veh_cnt, 'cost': 0})
 					elif n2['type'] == 'PICKUP':
 						link.append({'cap': 1, 'cost': 60})
 					else:
@@ -101,9 +105,14 @@ class DataReader:
 						link.append({'cap': 1, 'cost': 30})
 					elif n2['type'] == 'PICKUP' and n1['id'] != n2['id']:
 						dist = dist_table[n1['Location']][n2['Location']]
-						trip_time = trip_data.at[n2['id'], 'tpep_pickup_datetime'] - trip_data.at[n1['id'], 'tpep_dropoff_datetime']
+
+						do_time = trip_data.at[n1['id'], 'tpep_dropoff_datetime']
+						pu_time = trip_data.at[n2['id'], 'tpep_pickup_datetime']
+
+						trip_time = pu_time - do_time
 						trip_time = trip_time.seconds / 3600
-						if dist / speed < trip_time:
+
+						if pu_time > do_time and dist / speed < trip_time:
 							link.append({'cap': 1, 'cost': 30 * dist / speed})
 						else:
 							link.append(None)
