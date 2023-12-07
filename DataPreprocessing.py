@@ -71,6 +71,9 @@ class DataReader:
 		nodes = []
 		nodes.append({'type': 'SOURCE', 'Location':0, 'id': -1})
 		for r in self.trip_data.iterrows():
+			if self.dist_table[Pickup_data[i]][Dropoff_data[i]] is None:
+				continue
+
 			nodes.append({'type': 'PICKUP', 'Location':Pickup_data[i], 'id': r[0]})
 			nodes.append({'type': 'DROPOFF', 'Location':Dropoff_data[i], 'id': r[0]})
 			i += 1
