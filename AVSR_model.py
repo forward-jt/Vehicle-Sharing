@@ -63,7 +63,13 @@ model.setObjective(
 	quicksum(
 		links[i][j]['cost'] * y[i][j] if links[i][j] is not None else 0
 		for j in range(node_cnt)
-		for i in range(node_cnt)), GRB.MINIMIZE)
+		for i in range(node_cnt)) +
+	quicksum(
+		-links[i][j]['cost'] * (1 - y[i][j])
+		if links[i][j] is not None and nodes[i]['type'] == 'PICKUP' and nodes[j]['type'] == 'DROPOFF' else 0
+		for j in range(node_cnt)
+		for i in range (node_cnt))
+	, GRB.MINIMIZE)
 
 print('Optimizing')
 # Optimize
@@ -123,10 +129,5 @@ else:
 		out.write('\t"used_vehicle": %d,\n' % (len(routes)))
 		out.write('\t"ign_serv_cnt": %d,\n' % (ignore_cnt))
 		out.write('\t"ign_servs": %s,\n' % (str(ignore_list)))
-		out.write('\t"routes": [\n')
-
-		i = 1
-		for r in routes:
-			out.write('\t\t%s%s\n' % (str(r), '' if i == len(routes) else ','))
-			i += 1
-		out.write('\t]\n}')
+		out.write('\t"routes": [\n\t\t%s\n\t]\n' % (',\n\t\t'.join([str(r) for r in routes])))
+		out.write('}')
