@@ -20,7 +20,7 @@ slot_size = args.slot
 print('Initializing data reader')
 reader = DataReader('Data/yellow_tripdata_2023-01-11.csv', 'Data/IDLocation.csv')
 
-slot_size = slot_size if slot_size > 0 or slot_size <= reader.get_slot_cnt() else reader.get_slot_cnt()
+slot_size = slot_size if slot_size > 0 and slot_size <= reader.get_slot_cnt() else reader.get_slot_cnt()
 end_services = []
 routes = []
 ignore_list = []
@@ -111,7 +111,7 @@ for slot_begin in range(0, reader.slot_cnt, slot_size):
 			if na != 'SOURCE' and nb == 'SINK':
 				end_services.append(nodes[i]['id'])
 
-			if nb == 'SINK' and slot_end != 15:
+			if nb == 'SINK' and slot_end < reader.get_slot_cnt():
 				continue
 
 			add = False
