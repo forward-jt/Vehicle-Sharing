@@ -116,7 +116,7 @@ The linear programming model considering timeslots is exactly the same here, exc
 
 ## Evaluation
 ### New York Taxi Dataset
-The dataset we utilized is from the New York Taxi Dataset, collected by the New York City Taxi and Limousine Commission. We utilized the 'Pick up' and 'Drop off' times from this dataset. Regarding the location, we specifically selected regions. Consequently, we further identified the centers of each region to calculate distances.
+The dataset we utilized is from the New York Taxi Dataset, collected by the New York City Taxi and Limousine Commission. We utilized the 'Pick up' and 'Drop off' times from this dataset. Regarding the location, we selected regions. Consequently, we further identified the centers of each region to calculate distances.
 
 ### Requires Only 1/3 Vehicles Compared to 1-man-1-vehicle
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/RequiresVehicles.png)
