@@ -73,34 +73,40 @@ Edges are categorized into five types, as explained below:
 * Edges：
    * Dispatching：{ $e_{0,i^{+}}$ |∀ 𝑖∈𝑆}
       * $W_{o,i^{+}}=maintenance + moving cost ,$∀ 𝑖∈𝑆
+  > This edge represents the movement from the starting point to the service's pickup location.The weight is a fixed dispatching cost plus moving cost.
+
    * Serving：{ $e_{i^{+},i^{-}}$ |∀ 𝑖∈𝑆}
       * $W_{i^{+},i^{-}}=-(profit of serving i ) ,$∀ 𝑖∈𝑆
+  > This edge represents completing the service.As the objective is to minimize the cost, the weight for this edge will be the obtained profit with a minus sign.
    * Relocation：{ $e_{i^{-},j^{+}}$ |∀ 𝑖,j∈𝑆,$where t_{j}^{+}≥t_{i}^{-}$ + $\frac{|l_{i}^{-}-l_{j}^{+}|}{v}$ }
       * $W_{i^{-},j^{+}}=moving cost ,$∀ 𝑖,j∈𝑆
+  > When a vehicle finishes its current service and relocates within a feasible time to another service, this edge is formed.The criteria for this edge consider whether the vehicle can arrive at the new service's pickup location on time.The weight is moving cost.
+  
    * Collecting：{ $e_{i^{-},d}$ |∀ 𝑖∈𝑆}
       * $W_{i^{-},d}=moving cost ,$∀ 𝑖∈𝑆
-   * virtual：{ $e_{o,d}$ }
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Single-horizon%20model%20Edge.png)
-The following will describe the five types of edges:
-* Dispatching: This edge represents the movement from the starting point to the service's pickup location.The weight is a fixed dispatching cost plus moving cost.
-* Serving: This edge represents completing the service.As the objective is to minimize the cost, the weight for this edge will be the obtained profit with a minus sign.
-* Relocating: When a vehicle finishes its current service and relocates within a feasible time to another service, this edge is formed.The criteria for this edge consider whether the vehicle can arrive at the new service's pickup location on time.The weight is moving cost.
-* Collecting: After completing a service, the vehicle returns to the collection point.The weight of this edge represents the cost incurred from the movement.
-* Virtual: This edge is used to balance the number of vehicles. Vehicles that are not in use will be assigned to this edge.
+  > After completing a service, the vehicle returns to the collection point.The weight of this edge represents the cost incurred from the movement.
+
+  
+   * Virtual：{ $e_{o,d}$ }
+   > This edge is used to balance the number of vehicles. Vehicles that are not in use will be assigned to this edge.
+
+
+
+
 
 ### Binary Integer Programming Model
 Based on the aforementioned graph, construct a Binary Integer Programming Model:
 * Decision variables
   * $y_{a,b}, ∀ 𝑒_{𝑎,𝑏}∈𝐸$：Whether $𝑒_{𝑎,𝑏}$ is selected<br>
     
-The decision variable y represents whether a service is selected. If y equals 1, it indicates that the service has been chosen.
+> The decision variable y represents whether a service is selected. If y equals 1, it indicates that the service has been chosen.
 
 * Objective function
    * $Min(cost-profit+penalty)$
       * $𝑐𝑜𝑠𝑡−𝑝𝑟𝑜𝑓𝑖𝑡=∑_{𝑒_{𝑎,𝑏}∈𝐸}．𝑊_{𝑎,𝑏}．𝑦_{𝑎,𝑏}$
       * $𝑝𝑒𝑛𝑎𝑙𝑡𝑦=∑_{∀ 𝑖∈𝑆}．−𝑊_{𝑖^{+},𝑖^{−}}．(1 −𝑦_{𝑖^{+},𝑖^{−}})$<br>
 
-The objective is to minimize costs.Therefore, the objective function subtracts the earned profits from the costs and includes the penalty for services that weren't selected.
+> The objective is to minimize costs.Therefore, the objective function subtracts the earned profits from the costs and includes the penalty for services that weren't selected.
 The Cost and Profit are derived by multiplying the weights(w) with the variable y.
 
 * Constraints
