@@ -43,7 +43,7 @@ The object is to increase profit and reduce costs.
  
 ## Method
 The figure below illustrates the methodology framework, divided into two stages. The first stage, the Single-horizon model, involves constructing a Binary Integer Programming Model and converting it into a Linear Programming Model. The second stage considers variations in time slots to construct the Linear Programming Model.
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/MethodologyFramework.png)
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/MethodologyFramework.png=200x100)
 
 ### Notation
 
