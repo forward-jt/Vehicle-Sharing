@@ -90,7 +90,7 @@ Here are the three conditions that Matrix A must satisfy to be considered Totall
 
 The paper mentions that the aforementioned constraints can be transformed into Totally Unimodular, allowing relaxation of the decision variables (changed to >= 0), thereby converting it into an Integer Programming Model.
 
-### Linear Programming Model![image](https://github.com/forward-jt/Vehicle-Sharing/assets/61854163/c6c949f7-5af9-4843-934f-59d6edb88be9)
+### Linear Programming Model
 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
 
