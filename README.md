@@ -67,11 +67,14 @@ The figure below illustrates the methodology framework, divided into two stages.
 * $n$：The number of vehicles
 
 ### Gather Information into a Graph
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Single-horizon%20model%20Edge%20Graph.png)
+
 Edges are categorized into five types, as explained below: 
 
 * Nodes：N={ $i^{+},i^{-}$ │∀ $𝑖$ ∈𝑆}∪{𝑜, 𝑑}
 * Edges：
-   * Dispatching：{ $e_{0,i^{+}}$ |∀ 𝑖∈𝑆}
+   * Dispatching：{ $e_{o,i^{+}}$ |∀ 𝑖∈𝑆}
       * $W_{o,i^{+}}=maintenance + moving cost ,$∀ 𝑖∈𝑆
   > This edge represents the movement from the starting point to the service's pickup location.The weight is a fixed dispatching cost plus moving cost.
 
@@ -85,14 +88,9 @@ Edges are categorized into five types, as explained below:
    * Collecting：{ $e_{i^{-},d}$ |∀ 𝑖∈𝑆}
       * $W_{i^{-},d}=moving cost ,$∀ 𝑖∈𝑆
   > After completing a service, the vehicle returns to the collection point.The weight of this edge represents the cost incurred from the movement.
-
   
    * Virtual：{ $e_{o,d}$ }
    > This edge is used to balance the number of vehicles. Vehicles that are not in use will be assigned to this edge.
-
-
-
-
 
 ### Binary Integer Programming Model
 Based on the aforementioned graph, construct a Binary Integer Programming Model:
@@ -166,8 +164,19 @@ The first constraint is relaxed to be <=1, while the rest of the constraints rem
 Next, we will introduce the scenario where time is divided into multiple time slots, as this situation better reflects the problems encountered in real-life situations.
 Considering the time slot, the edge graph is as follows: 
 
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Multi-horizon%20model%20Edge.png)
-
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Multi-horizon%20model%20Edge%20Graph.png)
+* Nodes：N={ $i^{+},i^{-}$ │∀ $𝑖$ ∈𝑆}∪{𝑜, 𝑑}∪{ $k^{-}$ │∀ $k$ ∈𝑆^{-}}
+* Edges：
+   * Dispatching：{ $e_{o,i^{+}}$ |∀ 𝑖∈𝑆}
+      * $W_{o,i^{+}}=maintenance + moving cost ,$∀ 𝑖∈𝑆   
+   * Serving：{ $e_{i^{+},i^{-}}$ |∀ 𝑖∈𝑆}
+      * $W_{i^{+},i^{-}}=-(profit of serving i ) ,$∀ 𝑖∈𝑆 
+   * Relocation：{ $e_{i^{-},j^{+}}$ |∀ 𝑖,j∈𝑆∪ $𝑆^{-}$ ,$where t_{j}^{+}≥t_{i}^{-}$ + $\frac{|l_{i}^{-}-l_{j}^{+}|}{v}$ }
+      * $W_{i^{-},j^{+}}=moving cost ,$∀ 𝑖,j∈𝑆     
+   * Collecting：{ $e_{i^{-},d}$ |∀ 𝑖∈𝑆}
+      * $W_{i^{-},d}=moving cost ,$∀ 𝑖∈𝑆    
+   * Virtual：{ $e_{o,d}$ }
+   
 This diagram uses 'K' to denote the last service of the previous time slot and the first service of the next time slot.
 
 ### Linear Programming Model for Multiple Timeslots
@@ -208,6 +217,8 @@ We were curious about how different speeds of each vehicle would impact our mode
 
 ### Profit Only Reduces Slightly for Multiple Timeslots
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Profit%20Only%20Reduces%20Slightly%20for%20Multiple%20Timeslots.png)
+
+
 
 We compare two different versions of the model. The blue line represents the global optimal solution, while the red line depicts the smaller model for each time period solved within hourly intervals. We can observe the profit displayed here. In comparison to the global optimum, the profit only decreases slightly, but it still maintains a fairly good performance compared to the optimal solution.
 
