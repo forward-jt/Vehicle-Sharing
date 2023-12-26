@@ -60,6 +60,31 @@ The following will describe the five types of edges:
 * Collecting: After completing a service, the vehicle returns to the collection point.The weight of this edge represents the cost incurred from the movement.
 * Virtual: This edge is used to balance the number of vehicles. Vehicles that are not in use will be assigned to this edge.
 
+### Binary Integer Programming Model
+Based on the aforementioned graph, construct a Binary Integer Programming Model:
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Decision%20variables.png)
+
+The decision variable y represents whether a service is selected. If y equals 1, it indicates that the service has been chosen.
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Objective%20function.png)
+
+The objective is to minimize costs.Therefore, the objective function subtracts the earned profits from the costs and includes the penalty for services that weren't selected.
+The Cost and Profit are derived by multiplying the weights(w) with the variable y.
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Constraints2.png)
+
+The constraints are as follows:<br>
+1.If y equals 1, it indicates that the service has been chosen.<br>
+2.The number of unassigned vehicles will be less than the total number of vehicles.<br>
+3.The sum of assigned and unassigned vehicles will be equal to the total number of vehicles.<br>
+4.This formula is used to balance the flow of each node.<br>
+5.The total of vehicles completing assignments and those being unassigned and recovered will equal the total number of vehicles.<br>
+
+
+
+
+
 
 
   
