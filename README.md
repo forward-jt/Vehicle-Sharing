@@ -81,6 +81,25 @@ The constraints are as follows:<br>
 4.This formula is used to balance the flow of each node.<br>
 5.The total of vehicles completing assignments and those being unassigned and recovered will equal the total number of vehicles.<br>
 
+### Constraint Coefficient Matrix Is Totally Unimodular
+
+Integer programming is difficult to solve, so we need to find a way to convert it into a linear model to enhance solving efficiency. 
+If the constraint coefficient matrix of the linear programming module is totally unimodular, it can be proven that all solutions correspond to integers. Following the reverse condition, if the constraint coefficient matrix of the Integer Programming Model is totally unimodular, it can be transformed into a linear programming module.
+Here are the three conditions that Matrix A must satisfy to be considered Totally Unimodular:
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Constraint%20Coefficient%20Matrix%20Is%20Totally%20Unimodular.png) 
+
+The paper mentions that the aforementioned constraints can be transformed into Totally Unimodular, allowing relaxation of the decision variables (changed to >= 0), thereby converting it into an Integer Programming Model.
+
+### Linear Programming Model![image](https://github.com/forward-jt/Vehicle-Sharing/assets/61854163/c6c949f7-5af9-4843-934f-59d6edb88be9)
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
+
+Here is the revised Linear Programming Model with decision variables replaced by 'x' instead of the original 'y':
+The first constraint is relaxed to be <=( less than or equal to) 1, while the rest of the constraints remain unchanged.
+
+
+
+
 
 
 
