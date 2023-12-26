@@ -15,7 +15,7 @@ Dec 26,2023/ by 黃睿澤、吳紹維
 * Evaluation
     * Dataset
     * Result
-* [Conclusion](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/README.md#conclusion)
+* Conclusion
 * Reference
 
 ## Motivation and Background
@@ -68,6 +68,18 @@ The figure below illustrates the methodology framework, divided into two stages.
 
 ### Gather Information into a Graph
 Edges are categorized into five types, as explained below: 
+
+* Nodes：N={ $i^{+},i^{-}$ │∀ $𝑖$ ∈𝑆}∪{𝑜, 𝑑}
+* Edges：
+   * Dispatching：{ $e_{0,i^{+}}$ |∀ 𝑖∈𝑆}
+      * $W_{o,i^{+}}=maintenance + moving cost ,$∀ 𝑖∈𝑆
+   * Serving：{ $e_{i^{+},i^{-}}$ |∀ 𝑖∈𝑆}
+      * $W_{i^{+},i^{-}}=-(profit of serving i ) ,$∀ 𝑖∈𝑆
+   * Relocation：{ $e_{i^{-},j^{+}}$ |∀ 𝑖,j∈𝑆,$where t_{j}^{+}≥t_{i}^{-}$ + $\frac{|l_{i}^{-}-l_{j}^{+}|}{v}$ }
+      * $W_{i^{-},j^{+}}=moving cost ,$∀ 𝑖,j∈𝑆
+   * Collecting：{ $e_{i^{-},d}$ |∀ 𝑖∈𝑆}
+      * $W_{i^{-},d}=moving cost ,$∀ 𝑖∈𝑆
+   * virtual：{ $e_{o,d}$ }
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Single-horizon%20model%20Edge.png)
 The following will describe the five types of edges:
 * Dispatching: This edge represents the movement from the starting point to the service's pickup location.The weight is a fixed dispatching cost plus moving cost.
