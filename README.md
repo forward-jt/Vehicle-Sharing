@@ -121,12 +121,26 @@ Here are the three conditions that Matrix A must satisfy to be considered Totall
       * Two rows $i,j$ are in different set if ∃ 𝑘 s.t. $𝑎_{𝑖,𝑘}$ ． $𝑎_{𝑗,𝑘}$=1
       * Two rows $i,j$ are in the same set if ∃ 𝑘 s.t. $𝑎_{𝑖,𝑘}$ ． $𝑎_{𝑗,𝑘}$=-1
      
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Constraint%20Coefficient%20Matrix%20Is%20Totally%20Unimodular.png) 
-
 The paper mentions that the aforementioned constraints can be transformed into Totally Unimodular, allowing relaxation of the decision variables (changed to >= 0), thereby converting it into an Integer Programming Model.
 
 ### Linear Programming Model
 Here is the revised Linear Programming Model with decision variables replaced by 'x' instead of the original 'y':
+
+* Decision variables
+  * $x_{a,b}, ∀ 𝑒_{𝑎,𝑏}∈𝐸$：Whether $𝑒_{𝑎,𝑏}$ is selected<br>
+    
+* Objective function
+   * $Min(cost-profit+penalty)$
+      * $𝑐𝑜𝑠𝑡−𝑝𝑟𝑜𝑓𝑖𝑡=∑_{𝑒_{𝑎,𝑏}∈𝐸}．𝑊_{𝑎,𝑏}．x_{𝑎,𝑏}$
+      * $𝑝𝑒𝑛𝑎𝑙𝑡𝑦=∑_{∀ 𝑖∈𝑆}．−𝑊_{𝑖^{+},𝑖^{−}}．(1 −x_{𝑖^{+},𝑖^{−}})$<br>
+
+* Constraints
+   * $x_{a,b}$≤1,∀ $𝑒_{𝑎,𝑏}$∈𝐸 −{ $𝐸_{𝑜,𝑑}$ }<br>        
+   * $x_{o,d}≤=n$<br>
+   * $𝑥_{𝑎,𝑏}≥0, ∀ 𝑒_{𝑎,𝑏}∈𝐸$<br>     
+   * $∑_{𝑖∈𝑆}x_{𝑜,𝑖^{+}} +x_{𝑜,𝑑}=𝑛$<br>       
+   * $∑_{𝑏∈𝑁}x_{𝑏,𝑎}=∑_{𝑏∈𝑁}x_{𝑎,𝑏},∀𝑎∈𝑁 −${𝑜, 𝑑}<br>    
+   * $∑_{𝑖∈𝑆}x_{𝑖^{−},𝑑}+x_{𝑜,𝑑}=𝑛$<br>
 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
 
