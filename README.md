@@ -172,9 +172,6 @@ The linear programming model considering timeslots is exactly the same here, exc
    * $∑_{𝑖∈𝑆}x_{𝑖^{−},𝑑}+x_{𝑜,𝑑}=𝑛$<br>
    * $∑_{b∈N}x_{k^{−},b}=1,∀k∈S^{-}$<br>
 
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model%20for%20Multiple%20Timeslots.png)
-
-
 
 ## Evaluation
 ### New York Taxi Dataset
