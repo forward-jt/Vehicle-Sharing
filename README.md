@@ -1,7 +1,7 @@
 # Vehicle-Sharing
 # Circular Economy with Vehicle Sharing
 
-The project for operating research.
+The project for operating research.<br>
 Dec 26,2023/ by 黃睿澤、吳紹維
 ## Outline
 * Motivation and Background
@@ -78,12 +78,18 @@ The following will describe the five types of edges:
 
 ### Binary Integer Programming Model
 Based on the aforementioned graph, construct a Binary Integer Programming Model:
+* Decision variables
+  * $y_{a,b}, ∀ 𝑒_{𝑎,𝑏}∈𝐸$：Whether $𝑒_{𝑎,𝑏}$ is selected
+
 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Decision%20variables.png)
 
 The decision variable y represents whether a service is selected. If y equals 1, it indicates that the service has been chosen.
 
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Objective%20function.png)
+* Objective function
+   * $Min(cost-profit+penalty)$
+      * $𝑐𝑜𝑠𝑡−𝑝𝑟𝑜𝑓𝑖𝑡=∑_{𝑒_{𝑎,𝑏}∈𝐸}．𝑊_{𝑎,𝑏}．𝑦_{𝑎,𝑏}$
+      * $𝑝𝑒𝑛𝑎𝑙𝑡𝑦=∑_{∀ 𝑖∈𝑆}．−𝑊_{𝑖^{+},𝑖^{−}}．(1 −𝑦_{𝑖^{+},𝑖^{−}})$
 
 The objective is to minimize costs.Therefore, the objective function subtracts the earned profits from the costs and includes the penalty for services that weren't selected.
 The Cost and Profit are derived by multiplying the weights(w) with the variable y.
