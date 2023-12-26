@@ -2,7 +2,7 @@
 # Circular Economy with Vehicle Sharing
 
 The project for operating research.
-Dec 26,2023/ by 黃瑞澤、吳紹維
+Dec 26,2023/ by 黃睿澤、吳紹維
 ## Outline
 * Motivation and Background
 * Question Definition
