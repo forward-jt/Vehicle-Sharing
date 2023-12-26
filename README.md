@@ -138,8 +138,8 @@ We compare two different versions of the model. The blue line represents the glo
 ## Conclusion
 Our conclusion is that sharing contributes to higher vehicle utilization rates. As observed in the evaluation section, we can see that compared to scenarios with one car per service, only half or a third of the vehicles are needed. The increased vehicle utilization also reduces societal and environmental costs. Additionally, the vehicle utilization rate further decreases with an increase in vehicle speed. When comparing the global optimal model with the smaller model for each time period, the profit only slightly decreases.
 
-## 未來研究
-
+## Future Research
+After analyzing vehicle speed and demand, this study found that higher speeds require fewer vehicles. However, it did not consider the negative impacts of speed. In the future, there is potential to enhance the objective function by adding a penalty-related function concerning speed. This function would be related to the speed, following quadratic functions or similar methods to model penalties.
 
   
 ## Resources
