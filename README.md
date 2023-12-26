@@ -79,22 +79,30 @@ The following will describe the five types of edges:
 ### Binary Integer Programming Model
 Based on the aforementioned graph, construct a Binary Integer Programming Model:
 * Decision variables
-  * $y_{a,b}, ∀ 𝑒_{𝑎,𝑏}∈𝐸$：Whether $𝑒_{𝑎,𝑏}$ is selected
-
-
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Decision%20variables.png)
-
+  * $y_{a,b}, ∀ 𝑒_{𝑎,𝑏}∈𝐸$：Whether $𝑒_{𝑎,𝑏}$ is selected<br>
+    
 The decision variable y represents whether a service is selected. If y equals 1, it indicates that the service has been chosen.
 
 * Objective function
    * $Min(cost-profit+penalty)$
       * $𝑐𝑜𝑠𝑡−𝑝𝑟𝑜𝑓𝑖𝑡=∑_{𝑒_{𝑎,𝑏}∈𝐸}．𝑊_{𝑎,𝑏}．𝑦_{𝑎,𝑏}$
-      * $𝑝𝑒𝑛𝑎𝑙𝑡𝑦=∑_{∀ 𝑖∈𝑆}．−𝑊_{𝑖^{+},𝑖^{−}}．(1 −𝑦_{𝑖^{+},𝑖^{−}})$
+      * $𝑝𝑒𝑛𝑎𝑙𝑡𝑦=∑_{∀ 𝑖∈𝑆}．−𝑊_{𝑖^{+},𝑖^{−}}．(1 −𝑦_{𝑖^{+},𝑖^{−}})$<br>
 
 The objective is to minimize costs.Therefore, the objective function subtracts the earned profits from the costs and includes the penalty for services that weren't selected.
 The Cost and Profit are derived by multiplying the weights(w) with the variable y.
 
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Binary%20Integer%20Programming%20Model%20Constraints2.png)
+* Constraints
+   * $y_{a,b}$=0 or 1,∀ $𝑒_{𝑎,𝑏}$∈𝐸 −{$𝐸_{𝑜,𝑑}$}<br>
+    If $y$ equals 1, it indicates that the service has been chosen.<br>
+   * $y_{o,d}≤=n$<br>
+    The number of unassigned vehicles will be less than the total number of vehicles.<br>
+   * $∑_{𝑖∈𝑆}𝑦_{𝑜,𝑖^{+}} +𝑦_{𝑜,𝑑}=𝑛$<br>
+    The sum of assigned and unassigned vehicles will be equal to the total number of vehicles.<br>
+   * $∑_{𝑏∈𝑁}𝑦_{𝑏,𝑎}=∑_{𝑏∈𝑁}𝑦_{𝑎,𝑏},∀𝑎∈𝑁 −${𝑜, 𝑑}<br>
+  This formula is used to balance the flow of each node.<br>
+   * $∑_{𝑖∈𝑆}𝑦_{𝑖^{−},𝑑}+𝑦_{𝑜,𝑑}=𝑛$<br>
+   The total of vehicles completing assignments and those being unassigned and recovered will equal the total number of vehicles.<br>
+
 
 The constraints are as follows:<br>
 1.If y equals 1, it indicates that the service has been chosen.<br>
