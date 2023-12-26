@@ -15,7 +15,7 @@ Dec 26,2023/ by 黃睿澤、吳紹維
 * Evaluation
     * Dataset
     * Result
-* Conclusion
+* [Conclusion](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/README.md#conclusion)
 * Reference
 
 ## Motivation and Background
@@ -93,19 +93,19 @@ The Cost and Profit are derived by multiplying the weights(w) with the variable 
 
 * Constraints
    * $y_{a,b}$=0 or 1,∀ $𝑒_{𝑎,𝑏}$∈𝐸 −{ $𝐸_{𝑜,𝑑}$ }<br>
-    If $y$ equals 1, it indicates that the service has been chosen.<br>
+   > If $y$ equals 1, it indicates that the service has been chosen.<br>
     
    * $y_{o,d}≤=n$<br>
-    The number of unassigned vehicles will be less than the total number of vehicles.<br>
+   > The number of unassigned vehicles will be less than the total number of vehicles.<br>
     
    * $∑_{𝑖∈𝑆}𝑦_{𝑜,𝑖^{+}} +𝑦_{𝑜,𝑑}=𝑛$<br>
-    The sum of assigned and unassigned vehicles will be equal to the total number of vehicles.<br>
+   > The sum of assigned and unassigned vehicles will be equal to the total number of vehicles.<br>
     
    * $∑_{𝑏∈𝑁}𝑦_{𝑏,𝑎}=∑_{𝑏∈𝑁}𝑦_{𝑎,𝑏},∀𝑎∈𝑁 −${𝑜, 𝑑}<br>
-  This formula is used to balance the flow of each node.<br>
+   > This formula is used to balance the flow of each node.<br>
   
    * $∑_{𝑖∈𝑆}𝑦_{𝑖^{−},𝑑}+𝑦_{𝑜,𝑑}=𝑛$<br>
-   The total of vehicles completing assignments and those being unassigned and recovered will equal the total number of vehicles.<br>
+   > The total of vehicles completing assignments and those being unassigned and recovered will equal the total number of vehicles.<br>
 
 ### Constraint Coefficient Matrix Is Totally Unimodular
 
