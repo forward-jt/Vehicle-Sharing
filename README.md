@@ -48,17 +48,17 @@ The figure below illustrates the methodology framework, divided into two stages.
 
 
 ### Notation
-
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Notation.png)
 
 ### Gather Information into a Graph
-
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Single-horizon%20model%20Edge.png)
 The following will describe the five types of edges:
 * Dispatching: This edge represents the movement from the starting point to the service's pickup location.The weight is a fixed dispatching cost plus moving cost.
 * Serving: This edge represents completing the service.As the objective is to minimize the cost, the weight for this edge will be the obtained profit with a minus sign.
 * Relocating: When a vehicle finishes its current service and relocates within a feasible time to another service, this edge is formed.The criteria for this edge consider whether the vehicle can arrive at the new service's pickup location on time.The weight is moving cost.
 * Collecting: After completing a service, the vehicle returns to the collection point.The weight of this edge represents the cost incurred from the movement.
 * Virtual: This edge is used to balance the number of vehicles. Vehicles that are not in use will be assigned to this edge.
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Single-horizon%20model%20Edge%20Graph.png)
+
 
 
   
