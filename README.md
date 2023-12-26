@@ -109,17 +109,36 @@ This diagram uses 'K' to denote the last service of the previous time slot and t
 
 ### Linear Programming Model for Multiple Timeslots
 The linear programming model considering timeslots is exactly the same here, except for an additional constraint, which is the last constraint below. 'k-' denotes the transition from completing services in the previous round to starting services in the next round. Since 'k-' node has no input flow in this round but must have an output flow, this constraint is necessary.
+
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model%20for%20Multiple%20Timeslots.png)
 
 
 
 ## Evaluation
+### New York Taxi Dataset
+The dataset we utilized is from the New York Taxi Dataset, collected by the New York City Taxi and Limousine Commission. We utilized the 'Pick up' and 'Drop off' times from this dataset. Regarding the location, we specifically selected regions. Consequently, we further identified the centers of each region to calculate distances.
+
+### Requires Only 1/3 Vehicles Compared to 1-man-1-vehicle
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/RequiresVehicles.png)
+
+In this chart, it can be observed that as the number of services increases, the Vehicles/Services ratio rapidly decreases, requiring approximately only one-third of the vehicles to meet the demand.
+
+### Required Vehicles Reduces as Speed Increases
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Required%20Vehicles%20Reduces%20as%20Speed%20Increases.png)
+
+We were curious about how different speeds of each vehicle would impact our model. Therefore, we conducted tests for various speeds and found that as the speed increased, the number of vehicles needed to meet service requirements decreased. However, the difference compared to the previous scenario was not significant.
+
+
+### Profit Only Reduces Slightly for Multiple Timeslots
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Profit%20Only%20Reduces%20Slightly%20for%20Multiple%20Timeslots.png)
+
+We compare two different versions of the model. The blue line represents the global optimal solution, while the red line depicts the smaller model for each time period solved within hourly intervals. We can observe the profit displayed here. In comparison to the global optimum, the profit only decreases slightly, but it still maintains a fairly good performance compared to the optimal solution.
 
 
 ## Conclusion
+Our conclusion is that sharing contributes to higher vehicle utilization rates. As observed in the evaluation section, we can see that compared to scenarios with one car per service, only half or a third of the vehicles are needed. The increased vehicle utilization also reduces societal and environmental costs. Additionally, the vehicle utilization rate further decreases with an increase in vehicle speed. When comparing the global optimal model with the smaller model for each time period, the profit only slightly decreases.
 
-
-
+## 未來研究
 
 
   
