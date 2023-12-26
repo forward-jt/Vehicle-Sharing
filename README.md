@@ -142,8 +142,6 @@ Here is the revised Linear Programming Model with decision variables replaced by
    * $∑_{𝑏∈𝑁}x_{𝑏,𝑎}=∑_{𝑏∈𝑁}x_{𝑎,𝑏},∀𝑎∈𝑁 −${𝑜, 𝑑}<br>    
    * $∑_{𝑖∈𝑆}x_{𝑖^{−},𝑑}+x_{𝑜,𝑑}=𝑛$<br>
 
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
-
 The first constraint is relaxed to be <=1, while the rest of the constraints remain unchanged.
 
 ### The Latest Served Services are included in New Cycle
@@ -155,7 +153,24 @@ Considering the time slot, the edge graph is as follows:
 This diagram uses 'K' to denote the last service of the previous time slot and the first service of the next time slot.
 
 ### Linear Programming Model for Multiple Timeslots
-The linear programming model considering timeslots is exactly the same here, except for an additional constraint, which is the last constraint below. 'k-' denotes the transition from completing services in the previous round to starting services in the next round. Since 'k-' node has no input flow in this round but must have an output flow, this constraint is necessary.
+The linear programming model considering timeslots is exactly the same here, except for an additional constraint, which is the last constraint below. 'k^{-}' denotes the transition from completing services in the previous round to starting services in the next round. Since '$k^{-}$' node has no input flow in this round but must have an output flow, this constraint is necessary.
+
+* Decision variables
+  * $x_{a,b}, ∀ 𝑒_{𝑎,𝑏}∈𝐸$：Whether $𝑒_{𝑎,𝑏}$ is selected<br>
+    
+* Objective function
+   * $Min(cost-profit+penalty)$
+      * $𝑐𝑜𝑠𝑡−𝑝𝑟𝑜𝑓𝑖𝑡=∑_{𝑒_{𝑎,𝑏}∈𝐸}．𝑊_{𝑎,𝑏}．x_{𝑎,𝑏}$
+      * $𝑝𝑒𝑛𝑎𝑙𝑡𝑦=∑_{∀ 𝑖∈𝑆}．−𝑊_{𝑖^{+},𝑖^{−}}．(1 −x_{𝑖^{+},𝑖^{−}})$<br>
+
+* Constraints
+   * $x_{a,b}$≤1,∀ $𝑒_{𝑎,𝑏}$∈𝐸 −{ $𝐸_{𝑜,𝑑}$ }<br>        
+   * $x_{o,d}≤=n$<br>
+   * $𝑥_{𝑎,𝑏}≥0, ∀ 𝑒_{𝑎,𝑏}∈𝐸$<br>     
+   * $∑_{𝑖∈𝑆}x_{𝑜,𝑖^{+}} +x_{𝑜,𝑑}=𝑛$<br>       
+   * $∑_{𝑏∈𝑁}x_{𝑏,𝑎}=∑_{𝑏∈𝑁}x_{𝑎,𝑏},∀𝑎∈𝑁 −${𝑜, 𝑑}<br>    
+   * $∑_{𝑖∈𝑆}x_{𝑖^{−},𝑑}+x_{𝑜,𝑑}=𝑛$<br>
+   * $∑_{b∈N}x_{k^{−},b}=1,∀k∈S^{-}$<br>
 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model%20for%20Multiple%20Timeslots.png)
 
