@@ -51,6 +51,7 @@ The figure below illustrates the methodology framework, divided into two stages.
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Notation.png)
 
 ### Gather Information into a Graph
+Edges are categorized into five types, as explained below: 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Single-horizon%20model%20Edge.png)
 The following will describe the five types of edges:
 * Dispatching: This edge represents the movement from the starting point to the service's pickup location.The weight is a fixed dispatching cost plus moving cost.
