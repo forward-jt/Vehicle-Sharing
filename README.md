@@ -50,7 +50,21 @@ The figure below illustrates the methodology framework, divided into two stages.
 
 
 ### Notation
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Notation.png)
+
+
+* $S$：The set of services<br>
+   * $i,j$：The indices into the set $S$<br>
+   * $i^{+},i^{-}$：The nodes represents the start & the end of the service 𝑖, respectively<br>
+   * $l^{+},l^{-}$：The pickup and drop off location of the service 𝑖, respectively<br>
+      * $|𝑙_{𝑎}−𝑙_{𝑏} |, |𝑙_{𝑏}  −𝑙_{𝑎} |$: The distance between location 𝑎 and 𝑏<br>
+   * $t^{+},t^{-}$：: The pickup and drop off time of the service 𝑖, respectively<br>
+* $o,d$：The virtual nodes represent origin & destination, respectively
+* $N={i^{+},i^{-}|∀ 𝑖∈𝑆}∪{𝑜, 𝑑}$：The set of nodes
+* $E$：The set of edges
+   * $e_{a,b}$：The edge between node 𝑎 and 𝑏
+   * $W_{a,b}$：The weight of the edge between node 𝑎 and 𝑏
+* $v$：The velocity of vehicles
+* $n$：The number of vehicles
 
 ### Gather Information into a Graph
 Edges are categorized into five types, as explained below: 
