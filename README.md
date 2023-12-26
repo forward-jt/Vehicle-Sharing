@@ -108,8 +108,8 @@ Considering the time slot, the edge graph is as follows:
 This diagram uses 'K' to denote the last service of the previous time slot and the first service of the next time slot.
 
 ### Linear Programming Model for Multiple Timeslots
-
-![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
+The linear programming model considering timeslots is exactly the same here, except for an additional constraint, which is the last constraint below. 'k-' denotes the transition from completing services in the previous round to starting services in the next round. Since 'k-' node has no input flow in this round but must have an output flow, this constraint is necessary.
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model%20for%20Multiple%20Timeslots.png)
 
 
 
