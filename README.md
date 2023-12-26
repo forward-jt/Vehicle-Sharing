@@ -28,6 +28,11 @@ The challenge, however, is to improve the quality of the service.
 
 ## Qusetion Definition
 
+### Definition
+We will provide the customers' pickup locations, destinations, and times, as well as the number of available vehicles within the entire system.
+The vehicles within the dispatch system will be assigned to fulfill the service demand. 
+The object is to increase profit and reduce costs.
+
 ### Assumption
 * Self-driving vehicles：Robust self-contained system, without the need to consider human erratic behavior
 * Rides are not shared（Two services can not be served by the same vehicle simultaneously﹚：The vehicle can serve different customers but can only serve one group of customers at a time.
@@ -35,10 +40,7 @@ The challenge, however, is to improve the quality of the service.
 * Constant maintenance cost：The maintenance cost of the vehicle remains fixed since the vehicle is dispatched every day.
 * Constant moving speed：The vehicle's movement speed is fixed.
 
-### Definition
-We will provide the customers' pickup locations, destinations, and times, as well as the number of available vehicles within the entire system.
-The vehicles within the dispatch system will be assigned to fulfill the service demand. 
-The object is to increase profit and reduce costs.
+
 
  
 ## Method
@@ -91,16 +93,30 @@ Here are the three conditions that Matrix A must satisfy to be considered Totall
 The paper mentions that the aforementioned constraints can be transformed into Totally Unimodular, allowing relaxation of the decision variables (changed to >= 0), thereby converting it into an Integer Programming Model.
 
 ### Linear Programming Model
+Here is the revised Linear Programming Model with decision variables replaced by 'x' instead of the original 'y':
 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
 
-Here is the revised Linear Programming Model with decision variables replaced by 'x' instead of the original 'y':
-The first constraint is relaxed to be <=( less than or equal to) 1, while the rest of the constraints remain unchanged.
+The first constraint is relaxed to be <=1, while the rest of the constraints remain unchanged.
+
+### The Latest Served Services are included in New Cycle
+Next, we will introduce the scenario where time is divided into multiple time slots, as this situation better reflects the problems encountered in real-life situations.
+Considering the time slot, the edge graph is as follows: 
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Multi-horizon%20model%20Edge.png)
+
+This diagram uses 'K' to denote the last service of the previous time slot and the first service of the next time slot.
+
+### Linear Programming Model for Multiple Timeslots
+
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/Linear%20Programming%20Model.png)
 
 
 
+## Evaluation
 
 
+## Conclusion
 
 
 
