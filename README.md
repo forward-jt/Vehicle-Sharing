@@ -1,5 +1,6 @@
 # Vehicle-Sharing
 The project for operating research.
+![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/MethodologyFramework.png)
 
 ## Resources
 * [Designing optimal autonomous vehicle sharing and reservation systems: A linear programming approach](https://www.sciencedirect.com/science/article/pii/S0968090X17302322?casa_token=jjseGP72pYAAAAAA:kXwFtWkj0CzlnhZvTzHuJ03hc2j4h-JgGh3Grc_laNBF_2r-m2Rf-S-iZQBNZ-THtNiiMoIvq_Pq)
