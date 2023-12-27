@@ -21,17 +21,17 @@ Dec 26,2023/ by 黃睿澤、吳紹維
 ## Motivation and Background
 The high convenience of owning a private vehicle for mobility has led to an increasing rate of private vehicle ownership today. However, this trend has resulted in issues such as high expenses, increased resource consumption, environment cost.
 
-One solution to address this is through the utilization of vehicle sharing.By employing multiple shared vehicles within a designated area to serve the population, this approach provides a level of convenience similar to private car ownership while simultaneously reducing the number of private vehicles within cities.
-The benefits it can bring include reducing cost expenditures, maximizing product durability and recyclability, lowering environmental costs while enhancing vehicle utilization rates.
+One solution to address this is through the utilization of vehicle sharing with the concept of circular economy.
+By employing multiple porvider-owned shared vehicles within a designated area to serve the population, the transportation requirements could be fulfilled while remaining lower maintenance cost which leads to lower social cost.
+Besides lower maintenance cost, the higher product durability and recyclability and affordable environmental cost are also possible.
 
 The challenge, however, is to improve the quality of the service.
 
 ## Qusetion Definition
 
 ### Definition
-We will provide the customers' pickup locations, destinations, and times, as well as the number of available vehicles within the entire system.
-The vehicles within the dispatch system will be assigned to fulfill the service demand. 
-The object is to increase profit and reduce costs.
+With the customers' pick up / drop off location, time and the number of available vehicles are given, the goal is to maximize the profit while minimize the cost.
+The vehicles within the dispatch system will be assigned to fulfill the service demand.
 
 ### Assumption
 * Self-driving vehicles：Robust self-contained system, without the need to consider human erratic behavior
@@ -40,18 +40,12 @@ The object is to increase profit and reduce costs.
 * Constant maintenance cost：The maintenance cost of the vehicle remains fixed since the vehicle is dispatched every day.
 * Constant moving speed：The vehicle's movement speed is fixed.
 
-
-
- 
 ## Method
 The figure below illustrates the methodology framework, divided into two stages. The first stage, the Single-horizon model, involves constructing a Binary Integer Programming Model and converting it into a Linear Programming Model. The second stage considers variations in time slots to construct the Linear Programming Model.
 
 ![Image text](https://github.com/forward-jt/Vehicle-Sharing/blob/phase-2/img_storage/MethodologyFramework.png)
 
-
 ### Notation
-
-
 * $S$：The set of services<br>
    * $i,j$：The indices into the set $S$<br>
    * $i^{+},i^{-}$：The nodes represents the start & the end of the service 𝑖, respectively<br>
